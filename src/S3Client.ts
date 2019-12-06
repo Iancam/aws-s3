@@ -18,7 +18,9 @@ class S3Client {
     throwError(this.config, file);
 
     const fd =
-      typeof window === "undefined" ? new nodeFormData() : new FormData();
+      typeof window === "undefined"
+        ? ((new nodeFormData() as unknown) as FormData)
+        : new FormData();
     const fileExtension: string = file.type.split("/")[1];
     const fileName: string = `${newFileName ||
       shortId.generate()}.${fileExtension}`;
